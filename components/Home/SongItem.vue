@@ -8,7 +8,7 @@
       }"
       transition="fade-transition"
     >
-    <v-card @click="getSpinshareReference">
+    <v-card @click="getSpinshareReference" @click.middle="getSpinshareReference">
       <div class="d-flex flex-no-wrap justify-space-between">
         <div>
           <v-card-title class="text-h5" v-text="songObj.title"/>
@@ -59,7 +59,7 @@ export default {
   mounted() {
   },
   methods: {
-    getSpinshareReference: function() {
+    getSpinshareReference: function(event) {
       let ssapi = new SSAPI;
       let backbone = new BACKBONE;
       ssapi.getSongDetail(this.$props.songObj.id).then(async e => {
@@ -70,7 +70,14 @@ export default {
         }
         else if (hashArray.length == 0) {hashString = "0"}
         else {hashString = hashArray[0].levelHash}
-        this.$router.push({ name: 'song-SpinshareReference-slug', params: {SpinshareReference: e.data.fileReference, slug: hashString} })
+
+        const routerObj = { name: 'song-SpinshareReference-slug', params: { SpinshareReference: e.data.fileReference, slug: hashString } }
+        if (event.type == "mouseup") {
+          window.open(this.$router.resolve(routerObj).href, '_blank');
+        }
+        else {
+          this.$router.push(routerObj)
+        }
       });
     },
     getHash: async function() {
