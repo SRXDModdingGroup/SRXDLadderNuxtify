@@ -8,7 +8,7 @@
       }"
       transition="fade-transition"
     >
-    <v-card>
+    <v-card @click="getSpinshareReference">
       <div class="d-flex flex-no-wrap justify-space-between">
         <div>
           <v-card-title class="text-h5" v-text="songObj.title"/>
