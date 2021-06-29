@@ -1,6 +1,6 @@
 <template>
-  <v-container grid-list-lg>
-    <v-row>
+  <v-container>
+    <v-row class="flex-nowrap">
       <v-col v-for="(item, key) in items" :key="key" class="d-flex">
         <v-btn class="grow"
           :href="item.to"
