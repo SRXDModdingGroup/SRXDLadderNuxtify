@@ -2,6 +2,12 @@
   <v-col
     cols="12"
   >
+    <v-lazy
+      :options="{
+        threshold: .5
+      }"
+      transition="fade-transition"
+    >
     <v-card>
       <div class="d-flex flex-no-wrap justify-space-between">
         <div>
@@ -17,7 +23,7 @@
           size="125"
           tile
         >
-          <v-img :src="songObj.cover" :lazy-src="require('~/assets/defaultAlbumArt.jpg')">
+          <v-img :src="songObj.cover" :lazy-src="require('~/assets/img/defaultAlbumArt.jpg')">
             <template v-slot:placeholder>
               <v-row
                 class="fill-height ma-0"
@@ -33,6 +39,7 @@
         </v-avatar>
       </div>
     </v-card>
+    </v-lazy>
   </v-col>
 </template>
 

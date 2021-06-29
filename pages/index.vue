@@ -55,7 +55,7 @@ export default {
     },
     getSongs: function() {
       let ssapi = new SSAPI;
-      if (this.$data.songSearchString != ''){
+      if (this.$data.songSearchString.length >= 1){
           ssapi.search(this.$data.songSearchString).then(e => {
           this.$data.songArr = e.data.songs;
           this.$data.isSearchActive = true;

@@ -4,16 +4,16 @@
       <v-col v-for="(item, key) in items" :key="key" class="d-flex">
         <v-btn class="grow"
           :href="item.to"
-          :to=" item.to.toLowerCase().includes('://') ? '' : item.to "
+          :to=" item.to.includes('://') ? '' : item.to "
           :title="item.title"
         >
           <v-icon>{{ item.icon }}</v-icon>
+          <img style="max-height: 24px;" v-if="item.icon.includes('://')" :src="item.icon">
         </v-btn>
       </v-col>
     </v-row>
   </v-container>
 </template>
-
 <script>
 export default {
   data () {
@@ -35,7 +35,7 @@ export default {
           to: '/legal'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'https://spinshare.b-cdn.net/assets/img/favicon.png',
           title: 'SpinSha.re',
           to: 'https://spinsha.re/'
         }
