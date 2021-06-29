@@ -18,17 +18,16 @@
     <!-- songs -->
     <v-container>
       <v-row>
-        <SongItem v-for="song in songArr" :key="song.id" :songObj="song" />
+        <SongItem v-for="song in songArr" :key="song.id" :songObj="song" :clickable="true" />
       </v-row>
     </v-container>
-    <!-- <SongItem v-for="song in songArr" :key="song.id" :songObj="song" /> -->
   </div>
 </template>
 
 <script>
 import SSAPI from '~/modules/module.api.js'
 import ButtonNav from '~/components/Home/ButtonNav.vue'
-import SongItem from '~/components/Home/SongItem.vue'
+import SongItem from '~/components/Song/SongItem.vue'
 
 
 export default {

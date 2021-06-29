@@ -54,31 +54,34 @@ export default {
     }
   },
   props: {
-    'songObj': Object
+    'songObj': Object,
+    'clickable': Boolean
   },
   mounted() {
   },
   methods: {
     getSpinshareReference: function(event) {
-      let ssapi = new SSAPI;
-      let backbone = new BACKBONE;
-      ssapi.getSongDetail(this.$props.songObj.id).then(async e => {
-        let hashArray = await backbone.getHashes(e.data.fileReference, this.$store.state.database);
-        let hashString = new String();
-        if (hashArray.filter(temp => temp.levelHash === e.data.updateHash).length > 0) {
-          hashString = e.data.updateHash;
-        }
-        else if (hashArray.length == 0) {hashString = "0"}
-        else {hashString = hashArray[0].levelHash}
+      if (this.$props.clickable) {
+        let ssapi = new SSAPI;
+        let backbone = new BACKBONE;
+        ssapi.getSongDetail(this.$props.songObj.id).then(async e => {
+          let hashArray = await backbone.getHashes(e.data.fileReference, this.$store.state.database);
+          let hashString = new String();
+          if (hashArray.filter(temp => temp.levelHash === e.data.updateHash).length > 0) {
+            hashString = e.data.updateHash;
+          }
+          else if (hashArray.length == 0) {hashString = "0"}
+          else {hashString = hashArray[0].levelHash}
 
-        const routerObj = { name: 'song-SpinshareReference-slug', params: { SpinshareReference: e.data.fileReference, slug: hashString } }
-        if (event.type == "mouseup") {
-          window.open(this.$router.resolve(routerObj).href, '_blank');
-        }
-        else {
-          this.$router.push(routerObj)
-        }
-      });
+          const routerObj = { name: 'song-SpinshareReference-slug', params: { SpinshareReference: e.data.fileReference, slug: hashString } }
+          if (event.type == "mouseup") {
+            window.open(this.$router.resolve(routerObj).href, '_blank');
+          }
+          else {
+            this.$router.push(routerObj)
+          }
+        });
+      }
     },
     getHash: async function() {
       let backbone = new BACKBONE;
