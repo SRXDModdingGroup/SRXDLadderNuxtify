@@ -5,11 +5,11 @@
     <v-card>
       <div class="d-flex flex-no-wrap justify-space-between">
         <div>
-          <v-card-title
-            class="text-h5"
-            v-text="songObj.title"
-          />
-          <v-card-subtitle v-text="songObj.artist" />
+          <v-card-title class="text-h5" v-text="songObj.title"/>
+          <v-card-subtitle class="text-h7">
+            Artist: {{songObj.artist}}<br>
+            Mapper: {{songObj.charter}}
+          </v-card-subtitle>
         </div>
 
         <v-avatar
