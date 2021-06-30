@@ -4,22 +4,26 @@
   <v-toolbar dense>
     <v-toolbar-title>{{difficulty}}</v-toolbar-title>
     <v-spacer></v-spacer>
+    <v-btn :disabled="pageIndex == 1" @click="pageIndex--" icon>
+      <v-icon>mdi-arrow-left</v-icon>
+    </v-btn>
+    <v-btn :disabled="(pageIndex-1) >= maxPage" @click="pageIndex++" icon>
+      <v-icon>mdi-arrow-right</v-icon>
+    </v-btn>
     <v-text-field
       v-model="pageIndex"
       dense
       solo
       hide-details
       label="Page"
-      placeholder="Page"
-      class="shrink"
+      placeholder="1"
+      class="col-2 col-md-1"
       rounded
       filled
     />
-    <v-btn :disabled="pageIndex == 1" @click="pageIndex--" icon>
-      <v-icon>mdi-arrow-left</v-icon>
-    </v-btn>
-    <v-btn :disabled="(pageIndex-1) >= maxPage" @click="pageIndex++" icon>
-      <v-icon>mdi-arrow-right</v-icon>
+
+    <v-btn @click="refreshList" icon>
+      <v-icon>mdi-refresh</v-icon>
     </v-btn>
     <v-btn :href='`steam://run/1058830//play "${songObj.fileReference}.srtb" difficulty ${difficulty}`' icon>
       <v-icon>mdi-play</v-icon>
