@@ -9,10 +9,11 @@
         <v-col class="d-flex"><v-btn :href="`https://spinsha.re/song/${songObj.id}`" class="grow">Open in SpinSha.re</v-btn></v-col>
         <v-col class="d-flex"><v-btn :href="`spinshare-song://${SpinshareReference}`" class="grow">Open in Client</v-btn></v-col>
         <v-col class="d-flex"><v-btn @click="refreshHashSection" class="grow">Refresh All</v-btn></v-col>
-        <v-col class="d-flex"><v-btn class="grow">Enable Merging of Similar Versions (Beta)</v-btn></v-col>
-        <v-col class="d-flex"><v-select :items="dbOptions" v-model="dbDropdown" label="Database" hide-details solo dense></v-select></v-col>
+        <v-col class="d-flex"><v-btn @click="multiHash = !multiHash" :color="multiHash ? 'green' : ''" class="grow">Enable Merging of Similar Versions (Beta)</v-btn></v-col>
       </v-row>
       <v-row>
+        <v-col class="d-flex"><v-text-field v-model="steamID" @change="commitSteamID" label="Search Your SteamID Here..." placeholder="Press Enter to Submit..." hide-details solo dense></v-text-field></v-col>
+        <v-col class="d-flex"><v-select :items="dbOptions" v-model="dbDropdown" label="Database" hide-details solo dense></v-select></v-col>
         <v-col class="d-flex">
           <v-menu>
             <template v-slot:activator="{ on, attrs }">
@@ -32,7 +33,7 @@
                 :key="index"
                 :to="{ name: 'song-SpinshareReference-slug', params: { 'SpinshareReference': SpinshareReference, slug: hash.levelHash } }"
               >
-                <v-list-item-title>{{ hash.levelHash }}</v-list-item-title>
+                <v-list-item-title><span v-if="hash.newest">Newest - </span>{{ hash.levelHash }} - {{hash.length}} Submitted Scores</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -117,9 +118,6 @@ export default {
     },
     refreshHashSection: function() {
       this.$data.refreshHashSectionKey++
-    },
-    toggleMultiHash: function() {
-      this.$data.multiHash = !this.$data.multiHash;
     },
     commitSteamID: function(params) {
       this.$store.commit("setSteamID", this.$data.steamID)
