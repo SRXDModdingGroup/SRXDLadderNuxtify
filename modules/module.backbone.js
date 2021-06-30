@@ -2,7 +2,7 @@ const axios = require('axios');
 
 class BACKBONE {
     constructor() {
-        if (!process.env.NODE_ENV == "development") {
+        if (process.env.NODE_ENV == "development") {
             this.urlBase = "http://localhost:3000/api/";
         }
         else {
