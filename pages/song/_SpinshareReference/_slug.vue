@@ -13,6 +13,7 @@
       </v-row>
       <v-row>
         <v-col class="d-flex"><v-select :items="dbOptions" v-model="dbDropdown" label="Database" hide-details solo dense></v-select></v-col>
+        <v-col class="d-flex"><v-select :items="optionsHashArray" v-model="selectedHash" label="Database" hide-details solo dense></v-select></v-col>
       </v-row>
     </v-container>
   </v-card>
@@ -31,8 +32,8 @@ export default {
     ScoreListList
   },
   async asyncData({ params }) {
-    const selectedHash = params.slug
-    const SpinshareReference = params.SpinshareReference
+    let selectedHash = params.slug
+    let SpinshareReference = params.SpinshareReference
     return { selectedHash, SpinshareReference }
   },
   data: function () {
@@ -42,6 +43,7 @@ export default {
       steamID: this.$store.state.steamID,
       refreshHashSectionKey: 0,
 
+      optionsHashArray: [],
       multiHash: this.$store.state.multiHash,
       dbDropdown: this.$store.state.database,
       dbOptions: [
@@ -67,7 +69,7 @@ export default {
     },
     selectedHash() {
       console.log("hash changed")
-      this.refreshHashSection();
+      this.$router.push({ name: 'song-SpinshareReference-slug', params: { SpinshareReference: this.$data.SpinshareReference, slug: this.$data.selectedHash } })
     },
   },
   methods: {
@@ -78,25 +80,23 @@ export default {
 
       //Displays if newest
       this.$data.hashArray.forEach(element => {
-        element.newest = false;
         if (element.levelHash == this.$data.songObj.updateHash) {
-          element.newest = true;
+          this.$data.optionsHashArray.unshift({text: element.levelHash, value: element.levelHash})
+        }
+        else {
+          this.$data.optionsHashArray.push({text: element.levelHash, value: element.levelHash})
         }
       });
 
-      if (this.$route.params.SongHash == "0"){
+      if (this.$data.selectedHash == "0"){
         this.$data.selectedHash = this.$data.hashArray[0].levelHash;
       }
     },
-    hashChanger: function(hash) {
-      this.$router.push({ name: 'Song', params: {SpinshareReference: this.$route.params.SpinshareReference, SongHash: hash} })
-      window.location.reload();
-    },
     backToHome: function () {
-      this.$router.push({ name: 'Home', params: {} })
+      this.$router.push({ name: 'index', params: {} })
     },
     refreshHashSection: function() {
-      this.$data.refreshHashSectionKey--
+      this.$data.refreshHashSectionKey++
     },
     toggleMultiHash: function() {
       this.$data.multiHash = !this.$data.multiHash;
@@ -107,7 +107,6 @@ export default {
     }
   },
   beforeRouteUpdate (to, from, next) {
-    this.$data.selectedHash = to.params.SongHash
     next()
   }
 }
