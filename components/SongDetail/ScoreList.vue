@@ -17,9 +17,9 @@
       hide-details
       label="Page"
       placeholder="1"
-      class="col-2 col-md-1"
       rounded
       filled
+      style="max-width: 60px;"
     />
 
     <v-btn @click="refreshList" icon>
