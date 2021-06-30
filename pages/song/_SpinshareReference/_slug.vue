@@ -1,8 +1,22 @@
 <template>
-  <div>
-    <SongItem :songObj="songObj" />
-    <ScoreListList :songObj="songObj" :hash="selectedHash" />
-  </div>
+<div>
+  <SongItem :songObj="songObj" />
+  <ScoreListList :key="refreshHashSectionKey" :songObj="songObj" :hash="selectedHash" />
+
+  <v-card>
+    <v-container>
+      <v-row>
+        <v-col class="d-flex"><v-btn :href="`https://spinsha.re/song/${songObj.id}`" class="grow">Open in SpinSha.re</v-btn></v-col>
+        <v-col class="d-flex"><v-btn :href="`spinshare-song://${SpinshareReference}`" class="grow">Open in Client</v-btn></v-col>
+        <v-col class="d-flex"><v-btn @click="refreshHashSection" class="grow">Refresh All</v-btn></v-col>
+        <v-col class="d-flex"><v-btn class="grow">Enable Merging of Similar Versions (Beta)</v-btn></v-col>
+      </v-row>
+      <v-row>
+        <v-col class="d-flex"><v-select :items="dbOptions" v-model="dbDropdown" label="Database" hide-details solo dense></v-select></v-col>
+      </v-row>
+    </v-container>
+  </v-card>
+</div>
 </template>
 <script>
 import BACKBONE from '~/modules/module.backbone.js'
@@ -82,7 +96,7 @@ export default {
       this.$router.push({ name: 'Home', params: {} })
     },
     refreshHashSection: function() {
-      this.$data.refreshHashSectionKey++
+      this.$data.refreshHashSectionKey--
     },
     toggleMultiHash: function() {
       this.$data.multiHash = !this.$data.multiHash;
