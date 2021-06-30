@@ -30,6 +30,7 @@ export default {
     }
   },
   mounted() {
+    this.setActualDifficulties();
     this.$on("changePage", e => {
       this.$data.SongScoreListPageObj[e.difficulty] = e.pageChange
       this.getScoreData();
@@ -44,18 +45,23 @@ export default {
     })
   },
   methods: {
+    setActualDifficulties: function() {
+      if (this.songObj) {
+        this.$data.difficulties.forEach(difficulty => {
+          let key = `has${difficulty}Difficulty`;
+          if ( key == "hasExpertDifficulty" ) { key = "hasExtremeDifficulty" }
+          if (this.$props.songObj[key]) {
+            this.$data.actualDifficulties.push(difficulty)
+            this.$data.SongScoreListPageObj[difficulty] = 0
+            this.$data.SongScoreListRefreshObj[difficulty] = 0
+          }
+        });
+      }
+    }
   },
   watch: {
-      songObj: function() {
-        this.$data.difficulties.forEach(difficulty => {
-        let key = `has${difficulty}Difficulty`;
-        if ( key == "hasExpertDifficulty" ) { key = "hasExtremeDifficulty" }
-        if (this.$props.songObj[key]) {
-          this.$data.actualDifficulties.push(difficulty)
-          this.$data.SongScoreListPageObj[difficulty] = 0
-          this.$data.SongScoreListRefreshObj[difficulty] = 0
-        }
-      });
+    songObj: function() {
+      this.setActualDifficulties();
     }
   }
 }
