@@ -25,7 +25,6 @@ import SSAPI from '~/modules/module.api.js'
 import ButtonNav from '~/components/Home/ButtonNav.vue'
 import SongList from '~/components/SongItems/SongList.vue'
 
-
 export default {
   name: 'Home',
   components: {

@@ -17,9 +17,7 @@
 </template>
 
 <script>
-import SSAPI from '~/modules/module.api.js'
 import SongItem from '~/components/SongItems/SongItem.vue'
-
 
 export default {
   name: 'SongList',
