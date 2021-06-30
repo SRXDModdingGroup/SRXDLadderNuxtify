@@ -6,7 +6,7 @@
         solo
         hide-details
         label="Search..."
-        placeholder="Searching using the SpinSha.re catalogue..."
+        placeholder="Press Enter to Search..."
         v-model="songSearchString"
         @change="getSongs"
       ></v-text-field>
