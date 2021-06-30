@@ -10,10 +10,33 @@
         <v-col class="d-flex"><v-btn :href="`spinshare-song://${SpinshareReference}`" class="grow">Open in Client</v-btn></v-col>
         <v-col class="d-flex"><v-btn @click="refreshHashSection" class="grow">Refresh All</v-btn></v-col>
         <v-col class="d-flex"><v-btn class="grow">Enable Merging of Similar Versions (Beta)</v-btn></v-col>
+        <v-col class="d-flex"><v-select :items="dbOptions" v-model="dbDropdown" label="Database" hide-details solo dense></v-select></v-col>
       </v-row>
       <v-row>
-        <v-col class="d-flex"><v-select :items="dbOptions" v-model="dbDropdown" label="Database" hide-details solo dense></v-select></v-col>
-        <v-col class="d-flex"><v-select :items="optionsHashArray" v-model="selectedHash" label="Database" hide-details solo dense></v-select></v-col>
+        <v-col class="d-flex">
+          <v-menu>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                class="grow"
+                color="primary"
+                v-bind="attrs"
+                v-on="on"
+              >
+                <span v-if="selectedHash != 0">Selected Hash: {{ selectedHash }}</span>
+                <span v-else>No Hashes Found</span>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                v-for="(hash, index) in hashArray"
+                :key="index"
+                :to="{ name: 'song-SpinshareReference-slug', params: { 'SpinshareReference': SpinshareReference, slug: hash.levelHash } }"
+              >
+                <v-list-item-title>{{ hash.levelHash }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-col>
       </v-row>
     </v-container>
   </v-card>
@@ -43,7 +66,6 @@ export default {
       steamID: this.$store.state.steamID,
       refreshHashSectionKey: 0,
 
-      optionsHashArray: [],
       multiHash: this.$store.state.multiHash,
       dbDropdown: this.$store.state.database,
       dbOptions: [
@@ -69,7 +91,6 @@ export default {
     },
     selectedHash() {
       console.log("hash changed")
-      this.$router.push({ name: 'song-SpinshareReference-slug', params: { SpinshareReference: this.$data.SpinshareReference, slug: this.$data.selectedHash } })
     },
   },
   methods: {
@@ -80,16 +101,15 @@ export default {
 
       //Displays if newest
       this.$data.hashArray.forEach(element => {
+        element.newest = false;
         if (element.levelHash == this.$data.songObj.updateHash) {
-          this.$data.optionsHashArray.unshift({text: element.levelHash, value: element.levelHash})
-        }
-        else {
-          this.$data.optionsHashArray.push({text: element.levelHash, value: element.levelHash})
+          element.newest = true;
         }
       });
 
-      if (this.$data.selectedHash == "0"){
+      if (this.$data.selectedHash == "0" && this.$data.hashArray.length != 0){
         this.$data.selectedHash = this.$data.hashArray[0].levelHash;
+        this.refreshHashSection();
       }
     },
     backToHome: function () {
@@ -106,8 +126,5 @@ export default {
       this.refreshHashSection();
     }
   },
-  beforeRouteUpdate (to, from, next) {
-    next()
-  }
 }
 </script>
