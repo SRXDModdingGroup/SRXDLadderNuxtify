@@ -1,51 +1,109 @@
 <template>
+<v-card>
 
+  <v-toolbar dense>
+    <v-toolbar-title>{{difficulty}}</v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-text-field
+      v-model="pageIndex"
+      dense
+      solo
+      hide-details
+      label="Page"
+      placeholder="Page"
+      class="shrink"
+      rounded
+      filled
+    />
+    <v-btn :disabled="pageIndex == 1" @click="pageIndex--" icon>
+      <v-icon>mdi-arrow-left</v-icon>
+    </v-btn>
+    <v-btn :disabled="(pageIndex-1) >= maxPage" @click="pageIndex++" icon>
+      <v-icon>mdi-arrow-right</v-icon>
+    </v-btn>
+    <v-btn :href='`steam://run/1058830//play "${songObj.fileReference}.srtb" difficulty ${difficulty}`' icon>
+      <v-icon>mdi-play</v-icon>
+    </v-btn>
+  </v-toolbar>
+
+  <v-simple-table>
+    <template v-slot:default>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Score:</th>
+          <th>Steam Username:</th>
+          <th>Rank:</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ScoreListItem v-for="(score) in scoreArr" :scoreObj="score" :key="score.index" />
+        <tr v-for="(empty, index) in emptyArr" :key="index">
+          <th>-</th>
+          <th>-</th>
+          <th>-</th>
+          <th>-</th>
+        </tr>
+        <tr>
+          <td colspan="4">Your Score:</td>
+        </tr>
+        <ScoreListItem v-if="yourScore.length > 0" :scoreObj="yourScore[0]"/>
+        <tr v-else>
+          <th>-</th>
+          <th>-</th>
+          <th>-</th>
+          <th>-</th>
+        </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
+</v-card>
 </template>
 
 <script>
-// @ is an alias to /src
+import BACKBONE from '~/modules/module.backbone.js'
+import ScoreListItem from '~/components/SongDetail/ScoreListItem.vue'
+
 
 export default {
   name: 'ScoreList',
   components: {
+    ScoreListItem
   },
   props: {
-    "SongInfoObj": Object,
-    "hash": String
+    'songObj': Object,
+    'difficulty': String,
+    'hash': String,
   },
-  data: function () {
-    return {
-      truth: [
-        this.$props.SongInfoObj.hasXDDifficulty,
-        this.$props.SongInfoObj.hasExtremeDifficulty,
-        this.$props.SongInfoObj.hasHardDifficulty,
-        this.$props.SongInfoObj.hasNormalDifficulty,
-        this.$props.SongInfoObj.hasEasyDifficulty
-      ],
-      difficulties:['XD', 'Expert', 'Hard', 'Normal', 'Easy'],
-      SongScoreListObj: {'XD': [], 'Expert': [], 'Hard': [], 'Normal': [], 'Easy': []},
-      SongScoreListPageObj: {'XD': 0, 'Expert': 0, 'Hard': 0, 'Normal': 0, 'Easy': 0},
-      SongScoreListRefreshObj: {'XD': 0, 'Expert': 0, 'Hard': 0, 'Normal': 0, 'Easy': 0},
+  data: function(){
+    return{
+      maxPage: 0,
+      pageIndex: 1,
+      scoreArr: [],
+      yourScore: [],
+      emptyArr: []
+    }
+  },
+  watch: {
+  	'pageIndex': function() {
+    	this.refreshList();
     }
   },
   mounted() {
-    this.$on("changePage", e => {
-      this.$data.SongScoreListPageObj[e.difficulty] = e.pageChange
-      this.getScoreData();
-    })
-    this.$on("addPage", e => {
-      if(e.pageChange == "back") { this.$data.SongScoreListPageObj[e.difficulty] = this.$data.SongScoreListPageObj[e.difficulty] - 1 }
-      else if (e.pageChange == "next") { this.$data.SongScoreListPageObj[e.difficulty] = this.$data.SongScoreListPageObj[e.difficulty] + 1 }
-      this.getScoreData();
-    })
-    this.$on("refreshComponent", e => {
-      this.$data.SongScoreListRefreshObj[e] += 1
-    })
+    this.refreshList()
   },
   methods: {
-  }
+    refreshList: async function() {
+      let backbone = new BACKBONE;
+      this.$data.scoreArr = await backbone.getScores(this.$props.hash, this.$props.difficulty, this.$data.pageIndex - 1, this.$store.state.multiHash, this.$store.state.database)
+      if (this.$store.state.steamID != null){
+        this.$data.yourScore = await backbone.getUserScore(this.$store.state.steamID,this.$props.hash, this.$props.difficulty, this.$store.state.multiHash, this.$store.state.database)
+      }
+      this.$data.emptyArr = new Array(12 - this.$data.scoreArr.length)
+      if (this.$data.scoreArr[0]) this.$data.maxPage = this.$data.scoreArr[0].maxPage
+      console.log("refreshed");
+      return;
+    }
+  },
 }
 </script>
-<style lang="scss" scoped>
-
-</style>

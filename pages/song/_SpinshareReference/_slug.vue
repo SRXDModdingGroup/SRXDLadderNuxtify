@@ -1,15 +1,20 @@
 <template>
-  <SongItem :songObj="SongInfoObj" fluid />
+  <div>
+    <SongItem :songObj="songObj" />
+    <ScoreListList :songObj="songObj" :hash="selectedHash" />
+  </div>
 </template>
 <script>
 import BACKBONE from '~/modules/module.backbone.js'
 import SSAPI from '~/modules/module.api.js'
 import SongItem from '~/components/SongItems/SongItem.vue'
+import ScoreListList from '~/components/SongDetail/ScoreListList.vue'
 
 export default {
   name: 'Song',
   components: {
-    SongItem
+    SongItem,
+    ScoreListList
   },
   async asyncData({ params }) {
     const selectedHash = params.slug
@@ -19,7 +24,7 @@ export default {
   data: function () {
     return {
       hashArray: [],
-      SongInfoObj: {},
+      songObj: {},
       steamID: this.$store.state.steamID,
       refreshHashSectionKey: 0,
 
@@ -33,7 +38,7 @@ export default {
   },
   async mounted() {
     let ssapi = new SSAPI;
-    this.$data.SongInfoObj = (await ssapi.getSongDetail(this.$data.SpinshareReference)).data
+    this.$data.songObj = (await ssapi.getSongDetail(this.$data.SpinshareReference)).data
     this.mount()
   },
   watch: {
@@ -60,7 +65,7 @@ export default {
       //Displays if newest
       this.$data.hashArray.forEach(element => {
         element.newest = false;
-        if (element.levelHash == this.$data.SongInfoObj.updateHash) {
+        if (element.levelHash == this.$data.songObj.updateHash) {
           element.newest = true;
         }
       });

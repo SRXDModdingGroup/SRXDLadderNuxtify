@@ -5,6 +5,7 @@
       <v-text-field
         solo
         hide-details
+        filled
         label="Search..."
         placeholder="Press Enter to Search..."
         v-model="songSearchString"
