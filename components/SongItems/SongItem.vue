@@ -3,7 +3,7 @@
     <v-card @click="getSpinshareReference" @click.middle="getSpinshareReference">
       <div class="d-flex flex-no-wrap justify-space-between">
         <div>
-          <v-card-title class="text-h5" v-text="songObj.title"/>
+          <v-card-title class="text-h5 primary--text" v-text="songObj.title"/>
           <v-card-subtitle class="text-h7">
             Artist: {{songObj.artist}}<br>
             Mapper: {{songObj.charter}}
