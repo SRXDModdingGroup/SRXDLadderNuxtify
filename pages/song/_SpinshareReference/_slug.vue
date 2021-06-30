@@ -4,7 +4,7 @@
 <script>
 import BACKBONE from '~/modules/module.backbone.js'
 import SSAPI from '~/modules/module.api.js'
-import SongItem from '~/components/Song/SongItem.vue'
+import SongItem from '~/components/SongItems/SongItem.vue'
 
 export default {
   name: 'Song',

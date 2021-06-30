@@ -1,11 +1,5 @@
 <template>
-  <v-lazy
-    :options="{
-      threshold: .5
-    }"
-    transition="fade-transition"
-    class="col col-12"
-  >
+
     <v-card @click="getSpinshareReference" @click.middle="getSpinshareReference">
       <div class="d-flex flex-no-wrap justify-space-between">
         <div>
@@ -37,7 +31,7 @@
         </v-avatar>
       </div>
     </v-card>
-  </v-lazy>
+
 </template>
 
 <script>
