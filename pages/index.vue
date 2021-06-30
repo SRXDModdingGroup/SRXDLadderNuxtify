@@ -16,21 +16,25 @@
     </v-app-bar>
 
     <!-- songs -->
-    <SongList :songArr="songArr" />
+    <v-container>
+      <v-row>
+        <SongItem v-for="song in songArr" :key="song.id" :songObj="song" :clickable="true" />
+      </v-row>
+    </v-container>
   </div>
 </template>
 
 <script>
 import SSAPI from '~/modules/module.api.js'
 import ButtonNav from '~/components/Home/ButtonNav.vue'
-import SongList from '~/components/SongItems/SongList.vue'
+import SongItem from '~/components/Song/SongItem.vue'
 
 
 export default {
   name: 'Home',
   components: {
     ButtonNav,
-    SongList
+    SongItem
   },
   data: function () {
     return {
