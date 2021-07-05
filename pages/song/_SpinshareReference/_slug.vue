@@ -3,6 +3,15 @@
   <SongItem :songObj="songObj" />
   <ScoreListList :key="refreshHashSectionKey" :songObj="songObj" :hash="selectedHash" />
 
+  <v-snackbar color="primary" v-model="multiHashWarningSnackbar" timeout="2000">
+    The multiHash mode for querying is still quite experimental. Results may not reflect absolute reality.
+    <template v-slot:action="{ attrs }">
+      <v-btn color="green" v-bind="attrs" @click="multiHashWarningSnackbar = false">
+        Close
+      </v-btn>
+    </template>
+  </v-snackbar>
+
   <v-card>
     <v-container>
       <v-row>
@@ -68,6 +77,7 @@ export default {
       refreshHashSectionKey: 0,
 
       multiHash: this.$store.state.multiHash,
+      multiHashWarningSnackbar: false,
       dbDropdown: this.$store.state.database,
       dbOptions: [
         { text: 'Main Database', value: '' },
@@ -82,6 +92,7 @@ export default {
   },
   watch: {
     multiHash() {
+      this.$data.multiHashWarningSnackbar = this.$data.multiHash
       this.$store.commit("setMultiHash", this.$data.multiHash)
       this.refreshHashSection();
     },
