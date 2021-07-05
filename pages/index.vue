@@ -1,20 +1,7 @@
 <template>
   <div>
     <!-- navigation -->
-    <v-app-bar app>
-      <v-text-field
-        solo
-        hide-details
-        filled
-        label="Search..."
-        placeholder="Press Enter to Search..."
-        v-model="songSearchString"
-        @change="getSongs"
-      ></v-text-field>
-      <template v-slot:extension>
-        <ButtonNav />
-      </template>
-    </v-app-bar>
+    <ButtonNav v-model="songSearchString" />
 
     <!-- songs -->
     <SongList :songArr="songArr" />
@@ -40,6 +27,11 @@ export default {
   },
   mounted() {
     this.defaultSongs();
+  },
+  watch: {
+    songSearchString(e) {
+      this.getSongs()
+    }
   },
   methods: {
     defaultSongs: function() {
