@@ -4,11 +4,12 @@
     solo
     hide-details
     filled
+    :dense="densed"
     label="Search..."
     placeholder="Press Enter to Search..."
     :value="value"
     @change="update"
-  ></v-text-field>
+  />
   <template v-slot:extension>
     <v-row class="flex-nowrap">
       <v-col v-for="(item, key) in items" :key="key" class="d-flex">
@@ -58,7 +59,15 @@ export default {
         }
       ]
     }
-  }
+  },
+  computed: {
+    densed() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'sm': return true
+        default: return false
+      }
+    },
+  },
 }
 </script>
 
