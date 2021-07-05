@@ -3,14 +3,7 @@
   <SongItem :songObj="songObj" />
   <ScoreListList :key="refreshHashSectionKey" :songObj="songObj" :hash="selectedHash" />
 
-  <v-snackbar color="primary" v-model="multiHashWarningSnackbar" timeout="2000">
-    The multiHash mode for querying is still quite experimental. Results may not reflect absolute reality.
-    <template v-slot:action="{ attrs }">
-      <v-btn color="green" v-bind="attrs" @click="multiHashWarningSnackbar = false">
-        Close
-      </v-btn>
-    </template>
-  </v-snackbar>
+  <MultiHashWarning :value="multiHash" />
 
   <v-card>
     <v-container>
@@ -57,12 +50,14 @@ import BACKBONE from '~/modules/module.backbone.js'
 import SSAPI from '~/modules/module.api.js'
 import SongItem from '~/components/SongItems/SongItem.vue'
 import ScoreListList from '~/components/SongDetail/ScoreListList.vue'
+import MultiHashWarning from '~/components/SongDetail/MultiHashWarning.vue'
 
 export default {
   name: 'Song',
   components: {
     SongItem,
-    ScoreListList
+    ScoreListList,
+    MultiHashWarning
   },
   async asyncData({ params }) {
     let selectedHash = params.slug
@@ -77,7 +72,6 @@ export default {
       refreshHashSectionKey: 0,
 
       multiHash: this.$store.state.multiHash,
-      multiHashWarningSnackbar: false,
       dbDropdown: this.$store.state.database,
       dbOptions: [
         { text: 'Main Database', value: '' },
@@ -92,7 +86,6 @@ export default {
   },
   watch: {
     multiHash() {
-      this.$data.multiHashWarningSnackbar = this.$data.multiHash
       this.$store.commit("setMultiHash", this.$data.multiHash)
       this.refreshHashSection();
     },
