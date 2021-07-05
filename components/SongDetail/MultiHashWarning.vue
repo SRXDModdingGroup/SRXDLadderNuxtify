@@ -1,7 +1,7 @@
 <template>
 <div>
   <v-snackbar color="primary" v-model="multiHashWarningSnackbar" timeout="2000">
-    The multiHash mode for querying is still quite experimental. Results may not reflect absolute reality.
+    The MultiHash mode for querying is still quite experimental. Results may not reflect absolute reality.
     <template v-slot:action="{ attrs }">
       <v-btn color="green" v-bind="attrs" @click="multiHashWarningSnackbar = false">
         Close

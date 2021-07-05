@@ -25,11 +25,11 @@
                 v-bind="attrs"
                 v-on="on"
               >
-                <span v-if="selectedHash != 0">{{ selectedHash }}</span>
+                <span v-if="hashArray.length != 0">{{ selectedHash }}</span>
                 <span v-else>No Hashes Found</span>
               </v-btn>
             </template>
-            <v-list>
+            <v-list v-if="hashArray.length != 0">
               <v-list-item
                 v-for="(hash, index) in hashArray"
                 :key="index"

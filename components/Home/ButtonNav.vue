@@ -63,7 +63,10 @@ export default {
   computed: {
     densed() {
       switch (this.$vuetify.breakpoint.name) {
-        case 'sm': return true
+        case 'xs':
+        case 'sm':
+          return true
+          break;
         default: return false
       }
     },
