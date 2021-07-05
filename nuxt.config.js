@@ -45,6 +45,8 @@ export default {
     '@nuxtjs/vuetify',
   ],
 
+  buildDir: '../SRXDLadderBackend/public',
+
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
