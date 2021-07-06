@@ -1,6 +1,6 @@
 <template>
 
-    <v-card @click="getSpinshareReference" @click.middle="getSpinshareReference">
+    <v-card @click="clickable ? getSpinshareReference('') : ''" @click.middle="clickable ? getSpinshareReference('middle') : ''" :to="clickable ? '' : '/'">
       <div class="d-flex flex-no-wrap justify-space-between">
         <div>
           <v-card-title class="text-h5 primary--text" v-text="songObj.title"/>
@@ -65,7 +65,7 @@ export default {
           else {hashString = hashArray[0].levelHash}
 
           const routerObj = { name: 'song-SpinshareReference-slug', params: { SpinshareReference: e.data.fileReference, slug: hashString } }
-          if (event.type == "mouseup") {
+          if (event == "middle") {
             window.open(this.$router.resolve(routerObj).href, '_blank');
           }
           else {
