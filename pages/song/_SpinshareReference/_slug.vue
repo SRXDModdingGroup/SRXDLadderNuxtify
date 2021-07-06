@@ -11,7 +11,7 @@
         <v-col class="d-flex"><v-btn :href="`https://spinsha.re/song/${songObj.id}`" class="grow">Open in SpinSha.re</v-btn></v-col>
         <v-col class="d-flex"><v-btn :href="`spinshare-song://${SpinshareReference}`" class="grow">Open in Client</v-btn></v-col>
         <v-col class="d-flex"><v-btn @click="refreshHashSection" class="grow">Refresh All</v-btn></v-col>
-        <v-col class="d-flex"><v-btn @click="multiHash = !multiHash" :color="multiHash ? 'green' : ''" class="grow">Enable Merging of Similar Versions</v-btn></v-col>
+        <v-col class="d-flex"><v-btn @click="multiHash = !multiHash" :color="multiHash ? 'green lighten-1' : ''" class="grow">Enable Merging of Similar Versions</v-btn></v-col>
       </v-row>
       <v-row>
         <v-col class="d-flex"><v-text-field v-model="steamID" @change="commitSteamID" label="Search Your SteamID Here..." placeholder="Press Enter to Submit..." hide-details solo dense></v-text-field></v-col>
