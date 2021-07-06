@@ -12,13 +12,14 @@
   />
   <template v-slot:extension>
     <v-row class="flex-nowrap">
-      <v-col v-for="(item, key) in items" :key="key" class="pa-2 d-flex">
+      <v-col v-for="(item, key) in items" :key="key" class="pa-05 pa-0 d-flex">
         <v-btn class="grow pa-0"
           :href="item.to ? item.to : ''"
           :to="item.to && item.to.includes('://') ? '' : item.to "
           :title="item.title"
           @click="item.click ? item.click() : ''"
           dense
+          depressed
         >
           <v-icon>{{ item.icon }}</v-icon>
           <img style="max-height: 24px;" v-if="item.icon.includes('://')" :src="item.icon">
@@ -86,3 +87,8 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.pa-05 {
+  padding: 2px !important;
+}
+</style>
