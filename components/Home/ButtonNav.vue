@@ -13,7 +13,8 @@
   <template v-slot:extension>
     <v-row class="flex-nowrap">
       <v-col v-for="(item, key) in items" :key="key" class="pa-1 d-flex">
-        <v-btn class="grow"
+        <v-btn class="pa-0 grow"
+          style="min-width: auto;"
           :href="item.to"
           :to=" item.to.includes('://') ? '' : item.to "
           :title="item.title"
