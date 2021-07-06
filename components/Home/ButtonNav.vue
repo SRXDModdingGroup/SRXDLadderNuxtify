@@ -40,7 +40,7 @@ export default {
       this.$emit('input', e)
     },
     darkMode() {
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+      this.$store.commit('toggleDark')
     }
   },
   data () {

@@ -1,10 +1,14 @@
 export const state = () => ({
+  dark: true,
   steamID: "",
   multiHash: false,
   database: ""
 })
 
 export const mutations = {
+  toggleDark(state, value) {
+    state.dark = !state.dark;
+  },
   setSteamID(state, steamID) {
     state.steamID = steamID;
   },
