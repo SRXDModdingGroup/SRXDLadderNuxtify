@@ -1,5 +1,6 @@
 <template>
 <v-app-bar app>
+  <Settings :value="true" />
   <v-text-field
     solo
     hide-details
@@ -12,11 +13,13 @@
   />
   <template v-slot:extension>
     <v-row class="flex-nowrap">
-      <v-col v-for="(item, key) in items" :key="key" class="d-flex">
-        <v-btn class="grow"
-          :href="item.to"
-          :to=" item.to.includes('://') ? '' : item.to "
+      <v-col v-for="(item, key) in items" :key="key" class="pa-2 d-flex">
+        <v-btn class="grow pa-0"
+          :href="item.to ? item.to : ''"
+          :to="item.to && item.to.includes('://') ? '' : item.to "
           :title="item.title"
+          @click="item.title == 'Settings' ? options() : ''"
+          dense
         >
           <v-icon>{{ item.icon }}</v-icon>
           <img style="max-height: 24px;" v-if="item.icon.includes('://')" :src="item.icon">
@@ -27,11 +30,18 @@
 </v-app-bar>
 </template>
 <script>
+import Settings from '~/components/Home/Settings.vue'
 export default {
+  components: {
+    Settings
+  },
   props: ['value'],
   methods: {
     update(e) {
       this.$emit('input', e)
+    },
+    options() {
+      console.log("f")
     }
   },
   data () {
@@ -53,6 +63,10 @@ export default {
           to: '/legal'
         },
         {
+          icon: 'mdi-cog',
+          title: 'Settings'
+        },
+        {
           icon: 'https://spinshare.b-cdn.net/assets/img/favicon.png',
           title: 'SpinSha.re',
           to: 'https://spinsha.re/'
@@ -72,4 +86,3 @@ export default {
   },
 }
 </script>
-
