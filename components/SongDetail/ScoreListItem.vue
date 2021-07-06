@@ -1,9 +1,9 @@
 <template>
     <tr>
-      <th>{{scoreObj.index}}</th>
-      <th>{{scoreObj.score}}</th>
-      <th><a :href="'https://steamcommunity.com/profiles/'+ this.$props.scoreObj.steamID">{{scoreObj.steamUsername}}</a></th>
-      <th>{{rank}}</th>
+      <td>{{scoreObj.index}}</td>
+      <td>{{scoreObj.score}}</td>
+      <td><a :href="'https://steamcommunity.com/profiles/'+ this.$props.scoreObj.steamID">{{scoreObj.steamUsername}}</a></td>
+      <td>{{rank}}</td>
     </tr>
 </template>
 

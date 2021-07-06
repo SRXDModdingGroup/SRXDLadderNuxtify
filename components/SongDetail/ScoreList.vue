@@ -44,20 +44,20 @@
       <tbody>
         <ScoreListItem v-for="(score) in scoreArr" :scoreObj="score" :key="score.index" />
         <tr v-for="(empty, index) in emptyArr" :key="index">
-          <th>-</th>
-          <th>-</th>
-          <th>-</th>
-          <th>-</th>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
         </tr>
         <tr>
-          <td colspan="4">Your Score:</td>
+          <th colspan="4">Your Score:</th>
         </tr>
         <ScoreListItem v-if="yourScore.length > 0" :scoreObj="yourScore[0]"/>
         <tr v-else>
-          <th>-</th>
-          <th>-</th>
-          <th>-</th>
-          <th>-</th>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
         </tr>
       </tbody>
     </template>
