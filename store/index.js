@@ -1,5 +1,5 @@
 export const state = () => ({
-  dark: false,
+  dark: true,
   steamID: "",
   multiHash: false,
   database: ""
