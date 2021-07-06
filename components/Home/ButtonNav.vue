@@ -65,9 +65,8 @@ export default {
       switch (this.$vuetify.breakpoint.name) {
         case 'xs':
         case 'sm':
-          return true
-          break;
-        default: return false
+          return true;
+        default: return false;
       }
     },
   },
