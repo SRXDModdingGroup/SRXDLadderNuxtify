@@ -1,5 +1,5 @@
 <template>
-<v-app-bar app>
+<v-app-bar app class="loose">
   <v-text-field
     solo
     hide-details
@@ -12,7 +12,7 @@
   />
   <template v-slot:extension>
     <v-row class="flex-nowrap">
-      <v-col v-for="(item, key) in items" :key="key" class="d-flex">
+      <v-col v-for="(item, key) in items" :key="key" class="pa-1 d-flex">
         <v-btn class="grow"
           :href="item.to"
           :to=" item.to.includes('://') ? '' : item.to "
@@ -72,4 +72,12 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.loose {
+  ::v-deep .v-toolbar__content {
+    padding-left: 0.5em !important;
+    padding-right: 0.5em !important;
+  }
+}
+</style>
 
