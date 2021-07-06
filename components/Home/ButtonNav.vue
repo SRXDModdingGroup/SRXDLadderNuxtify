@@ -24,7 +24,7 @@
           @click="item.click ? item.click() : ''"
         >
           <v-icon>{{ item.icon }}</v-icon>
-          <img style="max-height: 24px;" v-if="item.icon.includes('://')" :src="item.icon">
+          <img style="max-height: 22px;" v-if="item.icon.includes('://')" :src="item.icon">
         </v-btn>
       </v-col>
     </v-row>
