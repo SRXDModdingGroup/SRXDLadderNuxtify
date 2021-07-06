@@ -1,10 +1,15 @@
 export const state = () => ({
+  dark: false,
   steamID: "",
   multiHash: false,
   database: ""
 })
 
 export const mutations = {
+  toggleDark(state, value) {
+    state.dark = !state.dark;
+    // Vue.prototype.$nuxt.$vuetify.theme.dark = state.dark;
+  },
   setSteamID(state, steamID) {
     state.steamID = steamID;
   },
@@ -15,3 +20,5 @@ export const mutations = {
     state.database = value;
   }
 }
+
+

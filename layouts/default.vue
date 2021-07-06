@@ -16,6 +16,19 @@
       return {
         commitSha: process.env["GITHASH"]
       }
+    },
+    computed: {
+      dark() {
+        return this.$store.state.dark;
+      }
+    },
+    watch: {
+      dark(e) {
+        this.$vuetify.theme.dark = e;
+      }
+    },
+    mounted() {
+      this.$vuetify.theme.dark = this.dark;
     }
   }
 </script>
