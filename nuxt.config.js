@@ -50,7 +50,7 @@ export default {
   ],
 
   generate: {
-    dir: '../SRXDLadderBackend/build/public/'
+    dir: '../public'
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules
