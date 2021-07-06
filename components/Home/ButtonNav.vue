@@ -7,6 +7,7 @@
     :dense="densed"
     label="Search..."
     placeholder="Press Enter to Search..."
+    prepend-inner-icon="mdi-magnify"
     :value="value"
     @change="update"
   />
@@ -14,6 +15,8 @@
     <v-row class="flex-nowrap">
       <v-col v-for="(item, key) in items" :key="key" class="pa-1 d-flex">
         <v-btn class="pa-0 grow"
+          text
+          color="primary"
           style="min-width: auto;"
           :href="item.to"
           :to=" item.to.includes('://') ? '' : item.to "
