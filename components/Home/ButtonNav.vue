@@ -1,6 +1,5 @@
 <template>
 <v-app-bar app>
-  <Settings :value="true" />
   <v-text-field
     solo
     hide-details
@@ -18,7 +17,7 @@
           :href="item.to ? item.to : ''"
           :to="item.to && item.to.includes('://') ? '' : item.to "
           :title="item.title"
-          @click="item.title == 'Settings' ? options() : ''"
+          @click="item.click ? item.click() : ''"
           dense
         >
           <v-icon>{{ item.icon }}</v-icon>
@@ -40,8 +39,8 @@ export default {
     update(e) {
       this.$emit('input', e)
     },
-    options() {
-      console.log("f")
+    darkMode() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
     }
   },
   data () {
@@ -63,8 +62,9 @@ export default {
           to: '/legal'
         },
         {
-          icon: 'mdi-cog',
-          title: 'Settings'
+          icon: 'mdi-theme-light-dark',
+          title: 'Settings',
+          click: this.darkMode
         },
         {
           icon: 'https://spinshare.b-cdn.net/assets/img/favicon.png',
