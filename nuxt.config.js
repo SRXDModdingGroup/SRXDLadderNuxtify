@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+const { GENERATE_PATH = '../SRXDLadderBackend/build/public/' } = process.env
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
@@ -50,7 +51,7 @@ export default {
   ],
 
   generate: {
-    dir: '../public'
+    dir: GENERATE_PATH
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules
