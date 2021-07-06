@@ -1,5 +1,8 @@
 import colors from 'vuetify/es5/util/colors'
+
 const { GENERATE_PATH = '../SRXDLadderBackend/build/public/' } = process.env
+try {var gitHash = require('child_process').execSync('git rev-parse --short HEAD').toString()} catch(e){var gitHash = 'undefined'};
+console.log("Git Hash:", gitHash)
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
@@ -93,5 +96,9 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  env: {
+    GITHASH: gitHash
   }
 }
