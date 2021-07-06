@@ -18,9 +18,10 @@
           text
           color="primary"
           style="min-width: auto;"
-          :href="item.to"
-          :to=" item.to.includes('://') ? '' : item.to "
+          :href="item.to ? item.to : ''"
+          :to=" item.to && item.to.includes('://') ? '' : item.to"
           :title="item.title"
+          @click="item.click ? item.click() : ''"
         >
           <v-icon>{{ item.icon }}</v-icon>
           <img style="max-height: 24px;" v-if="item.icon.includes('://')" :src="item.icon">
@@ -55,6 +56,11 @@ export default {
           icon: 'mdi-gavel',
           title: 'Legal',
           to: '/legal'
+        },
+        {
+          icon: 'mdi-brightness-6',
+          title: 'Dark/Light Mode',
+          click: () => {this.$store.commit('toggleDark')}
         },
         {
           icon: 'https://spinshare.b-cdn.net/assets/img/favicon.png',
