@@ -20,6 +20,7 @@
       rounded
       filled
       style="max-width: 60px;"
+      class="pagenum"
     />
 
     <v-btn @click="refreshList" icon>
@@ -111,3 +112,13 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.pagenum {
+  ::v-deep .v-input__slot {
+    padding: 0 0.55em !important;
+    input {
+      text-align: center;
+    }
+  }
+}
+</style>
