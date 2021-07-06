@@ -130,8 +130,8 @@ export default {
   },
 }
 </script>
-<style lang="scss">
-button {
+<style lang="scss" scoped>
+::v-deep button {
   overflow: hidden;
   width: 100%;
 }
