@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col v-for="(difficulty, key) in actualDifficulties" :key="key">
+      <v-col v-for="(difficulty, key) in actualDifficulties" :key="key" :id="difficulty">
         <ScoreList :songObj="songObj" :hash="hash" :difficulty="difficulty" :key="SongScoreListRefreshObj[difficulty]" />
       </v-col>
     </v-row>
