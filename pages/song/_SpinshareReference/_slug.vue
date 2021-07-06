@@ -112,7 +112,7 @@ export default {
         }
       });
 
-      if (!this.$data.hashArray.includes(this.$data.selectedHash) && this.$data.hashArray.length != 0){
+      if (!this.$data.hashArray.filter(function(e) { return e.levelHash === this.$data.selectedHash; }).length > 0 && this.$data.hashArray.length != 0){
         this.$data.selectedHash = this.$data.hashArray[0].levelHash;
         this.refreshHashSection();
       }
