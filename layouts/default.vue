@@ -2,7 +2,7 @@
   <v-app dark>
     <v-main>
       <v-container>
-        <Nuxt />
+        <Nuxt keep-alive :keep-alive-props="{ include: ['Home'] }" />
       </v-container>
     </v-main>
     <v-footer :absolute="true" app>
