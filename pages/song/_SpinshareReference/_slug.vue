@@ -59,6 +59,11 @@ export default {
     ScoreListList,
     MultiHashWarning
   },
+  head() {
+    return {
+      title: this.songObj["title"] || this.SpinshareReference
+    }
+  },
   async asyncData({ params }) {
     let selectedHash = params.slug
     let SpinshareReference = params.SpinshareReference

@@ -19,6 +19,11 @@ export default {
     ButtonNav,
     SongList
   },
+  head() {
+    return {
+      title: "Home"
+    }
+  },
   data: function () {
     return {
       songSearchString: "",

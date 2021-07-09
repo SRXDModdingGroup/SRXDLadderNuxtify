@@ -73,6 +73,11 @@
 <script>
 
 export default {
+  head() {
+    return {
+      title: "Legal"
+    }
+  },
   components: {
 
   },
