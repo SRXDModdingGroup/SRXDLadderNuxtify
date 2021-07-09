@@ -70,9 +70,6 @@ export default {
       songObj: {},
       steamID: this.$store.state.steamID,
       refreshHashSectionKey: 0,
-
-      multiHash: this.$store.state.multiHash,
-      dbDropdown: this.$store.state.database,
       dbOptions: [
         { text: 'Main Database', value: '' },
         { text: 'PrePatch11Data', value: 'PrePatch11Data' }
@@ -84,16 +81,28 @@ export default {
     this.$data.songObj = (await ssapi.getSongDetail(this.$data.SpinshareReference)).data
     this.mount()
   },
+  computed: {
+    multiHash: {
+      get() {
+        return this.$store.state.multiHash;
+      },
+      set(e) {
+        this.$store.commit("setMultiHash", e)
+        this.refreshHashSection();
+      }
+    },
+    dbDropdown: {
+      get() {
+        return this.$store.state.database;
+      },
+      set(e) {
+        console.log(e);
+        this.$store.commit("setDatabase", e)
+        this.refreshHashSection();
+      }
+    }
+  },
   watch: {
-    multiHash() {
-      this.$store.commit("setMultiHash", this.$data.multiHash)
-      this.refreshHashSection();
-    },
-    dbDropdown() {
-      this.$store.commit("setDatabase", this.$data.dbDropdown);
-      this.mount();
-      this.refreshHashSection();
-    },
     selectedHash() {
       console.log("hash changed")
     },
