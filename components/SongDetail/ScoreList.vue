@@ -21,6 +21,7 @@
       filled
       style="max-width: 60px;"
       class="pagenum"
+      type="number"
     />
 
     <v-btn @click="refreshList" icon>
@@ -118,6 +119,17 @@ export default {
     padding: 0 0.55em !important;
     input {
       text-align: center;
+    }
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
     }
   }
 }
