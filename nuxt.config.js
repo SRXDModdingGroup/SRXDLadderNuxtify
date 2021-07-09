@@ -22,7 +22,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - SRXDLadderNuxtify',
+    titleTemplate: '%s - SRXDLadder',
     title: 'SRXDLadderNuxtify',
     meta: [
       { charset: 'utf-8' },
