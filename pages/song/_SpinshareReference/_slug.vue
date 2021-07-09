@@ -14,7 +14,7 @@
         <v-col class="d-flex"><v-btn @click="multiHash = !multiHash" :color="multiHash ? 'green lighten-1' : ''" class="grow">Enable Merging of Similar Versions</v-btn></v-col>
       </v-row>
       <v-row>
-        <v-col class="d-flex"><v-text-field v-model="steamID" @change="commitSteamID" label="Search Your SteamID Here..." placeholder="Press Enter to Submit..." hide-details solo dense></v-text-field></v-col>
+        <v-col class="d-flex"><v-text-field :value="steamID" @change="steamID=$event" label="Search Your SteamID Here..." placeholder="Press Enter to Submit..." hide-details solo dense></v-text-field></v-col>
         <v-col class="d-flex"><v-select :items="dbOptions" v-model="dbDropdown" label="Database" hide-details solo dense></v-select></v-col>
         <v-col class="d-flex">
           <v-menu>
@@ -68,7 +68,6 @@ export default {
     return {
       hashArray: [],
       songObj: {},
-      steamID: this.$store.state.steamID,
       refreshHashSectionKey: 0,
       dbOptions: [
         { text: 'Main Database', value: '' },
@@ -82,6 +81,15 @@ export default {
     this.mount()
   },
   computed: {
+    steamID: {
+      get() {
+        return this.$store.state.steamID;
+      },
+      set(e) {
+        this.$store.commit("setSteamID", e)
+        this.refreshHashSection();
+      }
+    },
     multiHash: {
       get() {
         return this.$store.state.multiHash;
@@ -96,7 +104,6 @@ export default {
         return this.$store.state.database;
       },
       set(e) {
-        console.log(e);
         this.$store.commit("setDatabase", e)
         this.refreshHashSection();
       }
@@ -132,10 +139,6 @@ export default {
     refreshHashSection: function() {
       this.$data.refreshHashSectionKey++
     },
-    commitSteamID: function(params) {
-      this.$store.commit("setSteamID", this.$data.steamID)
-      this.refreshHashSection();
-    }
   },
 }
 </script>
