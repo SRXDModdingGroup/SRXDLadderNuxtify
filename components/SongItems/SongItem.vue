@@ -61,7 +61,7 @@ export default {
           if (hashArray.filter(temp => temp.levelHash === e.data.updateHash).length > 0) {
             hashString = e.data.updateHash;
           }
-          else if (hashArray.length == 0) {hashString = "0"}
+          else if (hashArray.length == 0) {hashString = ""}
           else {hashString = hashArray[0].levelHash}
 
           const routerObj = { name: 'song-SpinshareReference-slug', params: { SpinshareReference: e.data.fileReference, slug: hashString } }
